@@ -101,6 +101,94 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/accounts:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Get User Accounts
+      description: API for fetching user accounts
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User accounts retrieved successully
+          schema:
+            $ref: '#/definitions/AccountResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/transaction:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Get User Transactions
+      description: API for fetching user transactions
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User transactions retrieved successully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error 
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Transaction API
+      description: API for updating a user transaction 
+      parameters:
+        - in: body
+          name: body
+          description: Update user transaction attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserTransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User transaction retrieved successully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Transaction API
+      description: API for deleting a user transaction note
+      parameters:
+        - in: body
+          name: body
+          description: delete user transaction note
+          required: true
+          schema:
+            $ref: '#/definitions/UserTransactiondelete'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User transaction deleted successully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -155,4 +243,62 @@ definitions:
     type: object
     properties:
       userName:
+        type: string
+  AccountResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            balance:
+              type: integer
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            date:
+              type: string
+            amount:
+              type: integer
+            type:
+              type: string
+            categories:
+              type: string
+            note:
+              type: string
+  UserTransactionUpdate:
+    type: object
+    properties:
+      note:
+        type: string
+      categories:
+        type: string
+  UserTransactiondelete:
+    type: object
+    required:
+      - id
+    properties:
+      id:
         type: string
