@@ -1,20 +1,12 @@
 const mongoose = require('mongoose')
-//%%
-const accountSchema = new mongoose.Schema({
-  accountId: String,
-  balance: Number,
-  accountType: String,
-}, { _id: false });
-//%%
+
 const userSchema = new mongoose.Schema(
   {
     email: String,
     password: String,
     firstName: String,
     lastName: String,
-    userName: String,
-    //%%
-    accounts: [accountSchema] // Ajout du tableau de comptes ici
+    userName: String
   },
   {
     timestamps: true,
